@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Filerenamer
+﻿namespace Filerenamer
 {
     public class RenameHelper
     {
@@ -13,7 +7,7 @@ namespace Filerenamer
 
             //output_0001
             var nfiles = files.Select(n => int.Parse(Path.GetFileName(n).Replace("output_", "").Replace(".jpg", "").TrimStart('0'))).ToList();
-            int i = 1;
+            var i = 1;
             foreach (var file in files)
             {
                 try
@@ -34,7 +28,7 @@ namespace Filerenamer
         public static void Rename1(List<string> files)
         {
 
-            int i = 1;
+            var i = 1;
             foreach (var file in files)
             {
                 try

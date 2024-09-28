@@ -16,6 +16,13 @@ namespace FFMpegCore
         public FFMpegArgumentOptions WithVariableBitrate(int vbr) => WithArgument(new VariableBitRateArgument(vbr));
         public FFMpegArgumentOptions Resize(int width, int height) => WithArgument(new SizeArgument(width, height));
         public FFMpegArgumentOptions Resize(Size? size) => WithArgument(new SizeArgument(size));
+        public FFMpegArgumentOptions Crop(int width, int height,int posWidth,int posHeight) => WithArgument(new CropArgument(width, height,posWidth,posHeight));
+
+        public FFMpegArgumentOptions Vintage(string input1, string input2
+            , string output1, int fastfps, int delayInms
+            , float colorchannelmixer,string tmpPath) => WithArgument(new VintageArgument(input1,  input2
+            ,  output1,  fastfps,  delayInms
+            ,  colorchannelmixer,tmpPath));
 
         public FFMpegArgumentOptions WithBitStreamFilter(Channel channel, Filter filter) => WithArgument(new BitStreamFilterArgument(channel, filter));
         public FFMpegArgumentOptions WithConstantRateFactor(int crf) => WithArgument(new ConstantRateFactorArgument(crf));
@@ -82,6 +89,6 @@ namespace FFMpegCore
         {
             Arguments.Add(argument);
             return this;
-        }
+        } 
     }
 }

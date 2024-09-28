@@ -7,8 +7,11 @@ using FFMpegCore.Pipes;
 using SkiaSharp;
 using FFMpegImage = FFMpegCore.Extensions.System.Drawing.Common.FFMpegImage;
 
-var inputPath = "/path/to/input";
-var outputPath = "/path/to/output";
+//var inputPath = "/path/to/input";
+//var outputPath = "/path/to/output";
+
+var inputPath = "input.mp4";
+var outputPath = "output.mp4";
 
 {
     var mediaInfo = FFProbe.Analyse(inputPath);
@@ -16,6 +19,45 @@ var outputPath = "/path/to/output";
 
 {
     var mediaInfo = await FFProbe.AnalyseAsync(inputPath);
+    //X=1280
+    //Y=720
+     
+    //FFMpeg.Crop(inputPath, outputPath,440,720,820,0);
+    var input1 = "in1.mp4";
+    var input2 = "in2.mp4";
+    var output1 = "out1.mp4";
+    var delayInms = 1000;
+    var fastfps = 10;
+    var colorchannelmixer = 0.25f;
+
+    FFMpeg.Vintage(input1,input2,output1,fastfps,delayInms,colorchannelmixer);
+    //FFMpeg.Vintage(input1, input2, output1, fastfps, delayInms, colorchannelmixer);
+}
+/*
+ ffmpeg.exe -i td-10sec.mp4 -filter:v fps=fps=10 td-fast.mp4
+
+ffmpeg.exe -i output.mp4 -vf curves=vintage td-vintage-fast.mp4
+
+
+ffmpeg -i td-vintage-fast.mp4 -vf scale=1920:1080,setsar=1:1 oldFilm1080.mp4
+
+--ffmpeg -ss 00:01:00 -to 00:02:00 -i input.mp4 -c copy output.mp4
+
+ffmpeg -ss 00:00:01  -i oldFilm1080.mp4 -c copy output2.mp4
+
+ffmpeg.exe -i oldFilm1080.mp4 -i td-vintage-fast.mp4 -filter_complex "[0]format=rgba,colorchannelmixer=aa=0.25[fg];
+[1][fg]overlay[out]" -map [out] -pix_fmt yuv420p -c:v libx264 -crf 18 touchdown-vintage.mp4
+
+
+
+ffmpeg -i touchdown-vintage.mp4 -i audio.mp4 -c:v copy -c:a aac output.mp4
+ */
+
+
+var isreturn = true;
+if (isreturn)
+{
+    return;
 }
 
 {

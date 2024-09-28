@@ -21,7 +21,7 @@ namespace FFmpegWin
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = new Form();
+            var childForm = new Form();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
@@ -29,29 +29,29 @@ namespace FFmpegWin
 
         private void OpenFile(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            var openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             if (openFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                string FileName = openFileDialog.FileName;
+                var FileName = openFileDialog.FileName;
             }
         }
 
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            var saveFileDialog = new SaveFileDialog();
             saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                string FileName = saveFileDialog.FileName;
+                var FileName = saveFileDialog.FileName;
             }
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -98,7 +98,7 @@ namespace FFmpegWin
 
         private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach (Form childForm in MdiChildren)
+            foreach (var childForm in MdiChildren)
             {
                 childForm.Close();
             }

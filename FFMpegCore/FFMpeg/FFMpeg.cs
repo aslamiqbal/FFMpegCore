@@ -357,7 +357,41 @@ namespace FFMpegCore
                     .DisableChannel(Channel.Audio))
                 .ProcessSynchronously();
         }
+        public static void Crop(string inputPath, string outputPath, int newX, int newY, int posWidth, int posHeight)
+        {
+            //throw new NotImplementedException();
+            FFMpegArguments.FromFileInput(inputPath)
+                .OutputToFile(outputPath,true, options=> options.Crop(newY,newY,posWidth,posHeight))
+                .ProcessSynchronously();
 
+            // return str;
+        } 
+        public static void Vintage(string input1, string input2, string output1, int fastfps, int delayInms, float colorchannelmixer)
+        {
+            var tmpPath = DateTime.Now.Ticks.ToString() + ".mp4"; 
+            FFMpegArguments.FromFileInput(input1)
+               .OutputToFile(output1, true, options => options.Vintage(input1,input2,output1, fastfps,delayInms,colorchannelmixer,tmpPath))
+               .ProcessSynchronously();
+            /*
+      ffmpeg.exe -i td-10sec.mp4 -filter:v fps=fps=10 td-fast.mp4
+
+ ffmpeg.exe -i output.mp4 -vf curves=vintage td-vintage-fast.mp4
+
+
+ ffmpeg -i td-vintage-fast.mp4 -vf scale=1920:1080,setsar=1:1 oldFilm1080.mp4
+
+ --ffmpeg -ss 00:01:00 -to 00:02:00 -i input.mp4 -c copy output.mp4
+
+ ffmpeg -ss 00:00:01  -i oldFilm1080.mp4 -c copy output2.mp4
+
+ ffmpeg.exe -i oldFilm1080.mp4 -i td-vintage-fast.mp4 -filter_complex "[0]format=rgba,colorchannelmixer=aa=0.25[fg];
+ [1][fg]overlay[out]" -map [out] -pix_fmt yuv420p -c:v libx264 -crf 18 touchdown-vintage.mp4
+
+
+
+ ffmpeg -i touchdown-vintage.mp4 -i audio.mp4 -c:v copy -c:a aac output.mp4
+      */
+        }
         /// <summary>
         ///     Saves audio from a specific video file to disk.
         /// </summary>
@@ -638,6 +672,6 @@ namespace FFMpegCore
                     File.Delete(path);
                 }
             }
-        }
+        } 
     }
 }
