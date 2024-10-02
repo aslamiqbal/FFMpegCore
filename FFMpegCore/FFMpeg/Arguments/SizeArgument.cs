@@ -60,45 +60,15 @@ namespace FFMpegCore.Arguments
             _delayInms = delayInms;
             _colorchannelmixer = colorchannelmixer;
             _tmpPath= tmpPath;
-            var mpg = "ffmpeg ";
-            _rttxt = $" {mpg} -i {input1} -filter:v fps=fps={_fastfps} {tmpPath} -y\r\n";
-            _rttxt += $" {mpg} -i {tmpPath} -vf curves=vintage {tmpPath2} -y\r\n";
-            _rttxt += $" {mpg}-i {input2} -vf scale=1920:1080,setsar=1:1 {tmpPath3} -y\r\n";
+            var mpg =  "ffmpeg ";
+            _rttxt =  $"{mpg} -i {input1} -filter:v fps=fps={_fastfps} {tmpPath} -y\r\n";
+            _rttxt += $"{mpg} -i {tmpPath} -vf curves=vintage {tmpPath2} -y\r\n";
+            _rttxt += $"{mpg} -i {input2} -vf scale=1920:1080,setsar=1:1 {tmpPath3} -y\r\n";
             var quateVal = $"\"[0]format=rgba,colorchannelmixer=aa={colorchannelmixer}[fg];[1][fg]overlay[out]\" ";
-            _rttxt += $" {mpg}-i {tmpPath3} -i {tmpPath2} -filter_complex  {quateVal} -map [out] -pix_fmt yuv420p -c:v libx264 -crf 18 {tmpPath3} -y\r\n";
-            _rttxt += $" {mpg}ffmpeg -i {tmpPath3} -i {input1} -c:v copy -c:a aac {output1} -y\r\n";
+            _rttxt += $"{mpg} -i {tmpPath3} -i {tmpPath2} -filter_complex  {quateVal} -map [out] -pix_fmt yuv420p -c:v libx264 -crf 18 {tmpPath3} -y\r\n";
+            _rttxt += $"{mpg} -i {tmpPath3} -i {input1} -c:v copy -c:a aac {output1} -y\r\n";
 
-        }
-        /*
-         * 
-         * 
-         * 
-      --ffmpeg.exe -i td-10sec.mp4 
--filter:v fps=fps=10 
-td-fast.mp4
-
---ffmpeg.exe -i td-fast.mp4 
--vf curves=vintage 
-td-vintage-fast.mp4
-
-
---ffmpeg -i old-film-grain.wmv 
--vf scale=1920:1080,setsar=1:1 
-oldFilm1080.mp4
-
-ffmpeg.exe 
--i oldFilm1080.mp4 -i td-vintage-fast.mp4 -filter_complex "[0]format=rgba,colorchannelmixer=aa=0.25[fg];[1][fg]overlay[out]"-map [out] -pix_fmt yuv420p -c:v libx264 -crf 18 touchdown-vintage.mp4
-
-
- ffmpeg.exe -i oldFilm1080.mp4 -i td-vintage-fast.mp4 -filter_complex "[0]format=rgba,colorchannelmixer=aa=0.25[fg];
- [1][fg]overlay[out]" -map [out] -pix_fmt yuv420p -c:v libx264 -crf 18 touchdown-vintage.mp4
-
-
-
- ffmpeg -i touchdown-vintage.mp4 -i audio.mp4 -c:v copy -c:a aac output.mp4
-      */
-
+        } 
         public string Text => _rttxt;
-              //public string Text => Size == null ? string.Empty : $"-s {Size.Value.Width}x{Size.Value.Height}";
-    }
+     }
 }

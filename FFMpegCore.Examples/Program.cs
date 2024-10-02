@@ -10,7 +10,7 @@ using FFMpegImage = FFMpegCore.Extensions.System.Drawing.Common.FFMpegImage;
 //var inputPath = "/path/to/input";
 //var outputPath = "/path/to/output";
 
-var inputPath = "input.mp4";
+var inputPath = "in1.mp4";
 var outputPath = "output.mp4";
 
 {
